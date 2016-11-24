@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
@@ -79,6 +81,7 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedSubject = subjectArray[row]
     }
-    
 
+    
+    
 }

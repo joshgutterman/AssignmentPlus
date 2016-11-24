@@ -8,19 +8,29 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 class studentHomeViewController: UIViewController {
 
-    @IBOutlet weak var studentNameLabel: UILabel!
-    
-    var studentName = String()
+    @IBOutlet weak var theDate: UILabel!
+    @IBAction func logout(_ sender: Any) {
+        if FIRAuth.auth()?.currentUser != nil{
+            do {
+                try FIRAuth.auth()?.signOut()
+                print("Student has logged out")
+                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "studentOrTeacherView")
+                present(viewController, animated: true, completion: nil)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        studentNameLabel.text = studentName
-        // Do any additional setup after loading the view.
-    }
+        theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

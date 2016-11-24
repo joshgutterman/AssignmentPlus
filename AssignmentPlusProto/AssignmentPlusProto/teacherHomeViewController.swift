@@ -11,8 +11,11 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class teacherHomeViewController: UIViewController {
+class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var classes = [String]()
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var theDate: UILabel!
     @IBAction func logout(_ sender: Any) {
         if FIRAuth.auth()?.currentUser != nil{
@@ -41,6 +44,22 @@ class teacherHomeViewController: UIViewController {
         let information = FIRDatabase.database().reference()
         information.child("Teacher")
         
+    }
+    
+    //number of rows to dsiplay in tableview
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+        return classes.count
+    }
+    
+    //what to display in rows of table view
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+    
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        cell.textLabel?.text = classes[indexPath.row]
+        
+        return cell
     }
 
 }
