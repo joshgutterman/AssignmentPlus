@@ -13,7 +13,9 @@ import FirebaseAuth
 
 class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var classes = [String]()
+    //var classes = [String]()
+    //TEMP for tableview
+    var classes = ["P4 Calculus", "P1 English", "P6 US History"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var theDate: UILabel!
@@ -33,6 +35,9 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)
+        
+        //TEMP for tableview
+        tableView.reloadData();
 
     }
     override func didReceiveMemoryWarning() {
@@ -60,6 +65,15 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
         cell.textLabel?.text = classes[indexPath.row]
         
         return cell
+    }
+    
+    //go to assignments page when a class is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Teacher has selected a class")
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
+        self.present(nextController, animated:true, completion:nil)
     }
 
 }

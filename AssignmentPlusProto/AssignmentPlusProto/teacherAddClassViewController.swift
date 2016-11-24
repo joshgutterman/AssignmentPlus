@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseInstanceID
 
 class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
@@ -18,7 +20,8 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak var termText: UITextField!
     
     @IBAction func addClassButton(_ sender: Any) {
-        //INSER BUTTON STUFF HERE
+        //write class data to database
+        //createClass(subject: SUBJECT period: PERIOD, className: CLASSNAME);
     }
 
     //data for picker view
@@ -78,10 +81,11 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     //retreive data from subject picker
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    private func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let selectedSubject = subjectArray[row]
+        return selectedSubject
     }
 
-    
-    
+    //func createClass(subject: UIPickerView, period: )
+
 }
