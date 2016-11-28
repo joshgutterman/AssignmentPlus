@@ -21,6 +21,7 @@
 		27E9CF941DDDC74800DD0781 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27E9CF931DDDC74800DD0781 /* GoogleService-Info.plist */; };
 		83541FF75019918C520EEA10 /* Pods_AssignmentPlusProto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A84A427B9C7368EC1BC40428 /* Pods_AssignmentPlusProto.framework */; };
 		905710724C64A470EAACB6A3 /* Pods_AssignmentPlusProtoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4322EC4EC46CBE977630F561 /* Pods_AssignmentPlusProtoTests.framework */; };
+		D10BF61D1DEBF2D900D9D919 /* addAssignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BF61C1DEBF2D900D9D919 /* addAssignViewController.swift */; };
 		D147A29A1DDAE208006F837C /* studentSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D147A2991DDAE208006F837C /* studentSignUpViewController.swift */; };
 		D147A29C1DDAE270006F837C /* studentLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D147A29B1DDAE270006F837C /* studentLogInViewController.swift */; };
 		D147A29E1DDAF9C1006F837C /* studentHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D147A29D1DDAF9C1006F837C /* studentHomeViewController.swift */; };
@@ -74,6 +75,7 @@
 		4E2B43CBB14DC077FA5B548D /* Pods_AssignmentPlusProtoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AssignmentPlusProtoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B256FBA74CB0827B1185B6B /* Pods-AssignmentPlusProtoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AssignmentPlusProtoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AssignmentPlusProtoTests/Pods-AssignmentPlusProtoTests.release.xcconfig"; sourceTree = "<group>"; };
 		A84A427B9C7368EC1BC40428 /* Pods_AssignmentPlusProto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AssignmentPlusProto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10BF61C1DEBF2D900D9D919 /* addAssignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addAssignViewController.swift; sourceTree = "<group>"; };
 		D147A2991DDAE208006F837C /* studentSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = studentSignUpViewController.swift; sourceTree = "<group>"; };
 		D147A29B1DDAE270006F837C /* studentLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = studentLogInViewController.swift; sourceTree = "<group>"; };
 		D147A29D1DDAF9C1006F837C /* studentHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = studentHomeViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				D1A41B371DE6D800005CD409 /* teacherAssignViewController.swift */,
 				D1A41B351DE37A84005CD409 /* teacherAddClassViewController.swift */,
+				D10BF61C1DEBF2D900D9D919 /* addAssignViewController.swift */,
 			);
 			name = teacherAdd;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				271651AA1DC72B890054BC9D /* AppDelegate.swift in Sources */,
 				D1A41B361DE37A84005CD409 /* teacherAddClassViewController.swift in Sources */,
 				D1A41B331DE111D6005CD409 /* teacherHomeViewController.swift in Sources */,
+				D10BF61D1DEBF2D900D9D919 /* addAssignViewController.swift in Sources */,
 				D147A29A1DDAE208006F837C /* studentSignUpViewController.swift in Sources */,
 				272770811DEBDBE600ECB8EA /* CoursesItem.swift in Sources */,
 			);

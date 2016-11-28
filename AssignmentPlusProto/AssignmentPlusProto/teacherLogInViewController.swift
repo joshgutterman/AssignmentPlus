@@ -14,6 +14,7 @@ class teacherLogInViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var teacherLogInEmail: UITextField!
     @IBOutlet weak var teacherLogInPassword: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

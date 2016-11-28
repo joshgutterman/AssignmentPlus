@@ -43,6 +43,10 @@ class teacherSignUpViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpButton(_ sender: Any) {
         checkForTextFieldErrors(teacherFirstName: teacherFirstName, teacherLastName: teacherLastName, teacherEmail: teacherEmail, teacherPassword: teacherPassword, teacherSchool: teacherSchool);
         createTeacher(teacherFirstName: teacherFirstName, teacherLastName: teacherLastName, teacherEmail: teacherEmail, teacherPassword: teacherPassword, teacherSchool: teacherSchool);
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: teacherLogInViewController = storyBoard.instantiateViewController(withIdentifier: "teacherLogIn") as! teacherLogInViewController
+        self.present(nextController, animated:true, completion:nil)
     }
     
     //Checks the teacherSignUpView's text fields for errors

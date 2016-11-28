@@ -99,6 +99,10 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         checkForTextFieldErrors(periodText: periodText, classNameText: classNameText, termText: termText)
         if(addClassFlag == true){
             addClass(periodText: periodText, classNameText: classNameText, termText: termText)}
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController
+        self.present(nextController, animated:true, completion:nil)
     }
     
     func checkForTextFieldErrors(periodText: UITextField, classNameText: UITextField, termText: UITextField){
@@ -119,9 +123,9 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         let classPeriod = periodText.text
         let className = classNameText.text
         let classTerm = termText.text
-        
-        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm!])
-        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!]
+      //  "jwgutter1precalcwinter2017"
+        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm! ])//"UID":])
+        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm! ]//"UID": uidValue!]
         )
     }
     

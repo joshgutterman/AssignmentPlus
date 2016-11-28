@@ -1,19 +1,19 @@
 //
-//  teacherAssignViewController.swift
+//  addAssignViewController.swift
 //  AssignmentPlusProto
 //
-//  Created by Josh Gutterman on 11/24/16.
+//  Created by Josh Gutterman on 11/27/16.
 //  Copyright © 2016 CMPS 115. All rights reserved.
 //
 
 import UIKit
 
-class teacherAssignViewController: UIViewController {
+class addAssignViewController: UIViewController {
 
-    @IBAction func backButton(_ sender: Any) {
+    @IBAction func closeButton(_ sender: Any) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController
+        let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
         self.present(nextController, animated:true, completion:nil)
     }
     override func viewDidLoad() {
