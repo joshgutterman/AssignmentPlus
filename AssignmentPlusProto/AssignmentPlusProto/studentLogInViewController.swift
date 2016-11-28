@@ -46,6 +46,10 @@ class studentLogInViewController: UIViewController, UITextFieldDelegate {
                 }
             }else{
                 print("Student has logged in")
+                
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextController: studentHomeViewController = storyBoard.instantiateViewController(withIdentifier: "studentHome") as! studentHomeViewController
+                self.present(nextController, animated:true, completion:nil)
             }
         })
         

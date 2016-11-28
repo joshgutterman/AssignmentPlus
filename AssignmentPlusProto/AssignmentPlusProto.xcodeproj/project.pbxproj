@@ -14,6 +14,7 @@
 		271651B41DC72B890054BC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 271651B21DC72B890054BC9D /* LaunchScreen.storyboard */; };
 		271651BF1DC72B890054BC9D /* AssignmentPlusProtoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651BE1DC72B890054BC9D /* AssignmentPlusProtoTests.swift */; };
 		271651CA1DC72B890054BC9D /* AssignmentPlusProtoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */; };
+		272770811DEBDBE600ECB8EA /* CoursesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272770801DEBDBE600ECB8EA /* CoursesItem.swift */; };
 		27AAD0F51DDC22BE000E680F /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AAD0F41DDC22BE000E680F /* test.json */; };
 		27ACDA851DDE568F006E2E7A /* teacherLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */; };
 		27ACDA871DDE571A006E2E7A /* teacherSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACDA861DDE571A006E2E7A /* teacherSignUpViewController.swift */; };
@@ -62,6 +63,7 @@
 		271651C51DC72B890054BC9D /* AssignmentPlusProtoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssignmentPlusProtoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentPlusProtoUITests.swift; sourceTree = "<group>"; };
 		271651CB1DC72B890054BC9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		272770801DEBDBE600ECB8EA /* CoursesItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesItem.swift; sourceTree = "<group>"; };
 		27AAD0F41DDC22BE000E680F /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = teacherLogInViewController.swift; sourceTree = "<group>"; };
 		27ACDA861DDE571A006E2E7A /* teacherSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = teacherSignUpViewController.swift; sourceTree = "<group>"; };
@@ -138,17 +140,12 @@
 			children = (
 				27E9CF951DDDC7FF00DD0781 /* AssignmentPlusProto.entitlements */,
 				27E9CF931DDDC74800DD0781 /* GoogleService-Info.plist */,
-				271651A91DC72B890054BC9D /* AppDelegate.swift */,
-				271651AB1DC72B890054BC9D /* ViewController.swift */,
-				271651AD1DC72B890054BC9D /* Main.storyboard */,
-				271651B01DC72B890054BC9D /* Assets.xcassets */,
-				271651B21DC72B890054BC9D /* LaunchScreen.storyboard */,
+				272770841DEBE8FD00ECB8EA /* Layouts */,
+				272770851DEBE91800ECB8EA /* Other */,
+				272770831DEBE8DD00ECB8EA /* Controllers */,
 				271651B51DC72B890054BC9D /* Info.plist */,
-				D1A41B351DE37A84005CD409 /* teacherAddClassViewController.swift */,
-				D1A41B371DE6D800005CD409 /* teacherAssignViewController.swift */,
-				D1A41B341DE111DF005CD409 /* homeControllers */,
-				27ACDA881DDE5728006E2E7A /* loginControllers */,
-				27ACDA891DDE573F006E2E7A /* signUpControllers */,
+				272770871DEBE95300ECB8EA /* Models */,
+				271651B01DC72B890054BC9D /* Assets.xcassets */,
 			);
 			path = AssignmentPlusProto;
 			sourceTree = "<group>";
@@ -169,6 +166,52 @@
 				271651CB1DC72B890054BC9D /* Info.plist */,
 			);
 			path = AssignmentPlusProtoUITests;
+			sourceTree = "<group>";
+		};
+		272770831DEBE8DD00ECB8EA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				271651AB1DC72B890054BC9D /* ViewController.swift */,
+				272770861DEBE93500ECB8EA /* teacherAdd */,
+				27ACDA881DDE5728006E2E7A /* loginControllers */,
+				27ACDA891DDE573F006E2E7A /* signUpControllers */,
+				D1A41B341DE111DF005CD409 /* homeControllers */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		272770841DEBE8FD00ECB8EA /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				271651AD1DC72B890054BC9D /* Main.storyboard */,
+				271651B21DC72B890054BC9D /* LaunchScreen.storyboard */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
+		272770851DEBE91800ECB8EA /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				271651A91DC72B890054BC9D /* AppDelegate.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		272770861DEBE93500ECB8EA /* teacherAdd */ = {
+			isa = PBXGroup;
+			children = (
+				D1A41B371DE6D800005CD409 /* teacherAssignViewController.swift */,
+				D1A41B351DE37A84005CD409 /* teacherAddClassViewController.swift */,
+			);
+			name = teacherAdd;
+			sourceTree = "<group>";
+		};
+		272770871DEBE95300ECB8EA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				272770801DEBDBE600ECB8EA /* CoursesItem.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		27ACDA881DDE5728006E2E7A /* loginControllers */ = {
@@ -520,6 +563,7 @@
 				D1A41B361DE37A84005CD409 /* teacherAddClassViewController.swift in Sources */,
 				D1A41B331DE111D6005CD409 /* teacherHomeViewController.swift in Sources */,
 				D147A29A1DDAE208006F837C /* studentSignUpViewController.swift in Sources */,
+				272770811DEBDBE600ECB8EA /* CoursesItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

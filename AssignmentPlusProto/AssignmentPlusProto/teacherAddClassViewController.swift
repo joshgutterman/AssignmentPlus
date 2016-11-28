@@ -120,8 +120,8 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         let className = classNameText.text
         let classTerm = termText.text
         
-        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["class": className!, "period": classPeriod!, "school_term": classTerm!])
-        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["teacher_email": emailValue, "class": className!, "period": classPeriod!, "school_term": classTerm!]
+        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm!])
+        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!]
         )
     }
     
