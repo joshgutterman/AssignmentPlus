@@ -16,10 +16,14 @@ class teacherAssignViewController: UIViewController {
         let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController
         self.present(nextController, animated:true, completion:nil)
     }
+    
+    var passedValueCourse:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let labelCourseValue = passedValueCourse
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
