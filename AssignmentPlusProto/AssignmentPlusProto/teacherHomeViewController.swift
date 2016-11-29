@@ -90,21 +90,26 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    var valueToPass:String!
+    
     //go to assignments page when a class is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Teacher has selected a course")
         
         // Get Cell Label
-        //let indexPath = tableView.indexPathForSelectedRow;
-        //let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
+        let indexPath = tableView.indexPathForSelectedRow;
+        let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
+        
+        //valueToPass = currentCell?.textLabel?.text
+        //performSegue(withIdentifier: "teacherAssign", sender: self)
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
-        //nextController.passedValue = currentCell?.textLabel?.text
+        nextController.passedValueCourse = currentCell?.textLabel?.text
         self.present(nextController, animated:true, completion:nil)
-        //print(currentCell?.textLabel?.text! ?? String())
+        print(currentCell?.textLabel?.text)
     }
-    
+
     
 
 }
