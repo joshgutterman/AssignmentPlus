@@ -133,9 +133,8 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         let newClassTerm = classTerm?.trimmingCharacters(in: CharacterSet.whitespaces)
         let UID = emailValue+classPeriod!+newClassName!+newClassTerm!
         print(UID)
-        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm! ])//"UID":])
-        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm! ]//"UID": uidValue!]
-        )
+        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID":])
+        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID": uidValue!]
     }
     
     func myAlert(alertMessage: String){

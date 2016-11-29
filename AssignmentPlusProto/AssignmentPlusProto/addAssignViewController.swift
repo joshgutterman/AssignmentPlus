@@ -16,6 +16,9 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var detailsText: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
+    let ref = FIRDatabase.database().reference()
+    let userID = FIRAuth.auth()?.currentUser?.uid
+    var schoolValue:String = ""
     
     var addAssignFlag = false
     
@@ -32,6 +35,16 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
         
         self.titleText.delegate = self
         self.detailsText.delegate = self
+        
+
+        ref.child("Teacher").child(userID!).observe(.value, with: {
+            FIRDataSnapshot in
+            self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
+        })
+        
+        //passing subject
+        
+       // ref.child(schoolValue).child()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,8 +75,10 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
             let dateString = dateFormatter.string(from: datePicker.date)
             print(dateString)
             
-            //ADD ASSIGNMENT TO FIREBASE
         }
+        
+        print(self.schoolValue)
+        print("********")
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
