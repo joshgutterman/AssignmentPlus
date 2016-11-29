@@ -123,7 +123,16 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         let classPeriod = periodText.text
         let className = classNameText.text
         let classTerm = termText.text
-      //  "jwgutter1precalcwinter2017"
+        
+        ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
+            self.emailValue = (FIRDataSnapshot).childSnapshot(forPath: "email").value as! String
+        })
+        
+        //"jwgutter1precalcwinter2017"
+        let newClassName = className?.trimmingCharacters(in: CharacterSet.whitespaces)
+        let newClassTerm = classTerm?.trimmingCharacters(in: CharacterSet.whitespaces)
+        let UID = emailValue+classPeriod!+newClassName!+newClassTerm!
+        print(UID)
         ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm! ])//"UID":])
         ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm! ]//"UID": uidValue!]
         )

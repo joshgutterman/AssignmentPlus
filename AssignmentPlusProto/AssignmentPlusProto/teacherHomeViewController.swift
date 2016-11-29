@@ -94,9 +94,15 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Teacher has selected a course")
         
+        // Get Cell Label
+        //let indexPath = tableView.indexPathForSelectedRow;
+        //let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
+        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
+        //nextController.passedValue = currentCell?.textLabel?.text
         self.present(nextController, animated:true, completion:nil)
+        //print(currentCell?.textLabel?.text! ?? String())
     }
     
     

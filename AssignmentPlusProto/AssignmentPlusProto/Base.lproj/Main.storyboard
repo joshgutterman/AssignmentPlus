@@ -1257,15 +1257,96 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOf-mm-chL">
+                                <rect key="frame" x="32" y="140" width="86" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="H31-2V-d3s"/>
+                                    <constraint firstAttribute="width" constant="86" id="dcu-B3-GCy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Title:">
+                                    <color key="titleColor" red="0.98039215690000003" green="0.6705882353" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMI-5z-Y9t">
+                                <rect key="frame" x="32" y="447" width="86" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="nJB-BZ-vCO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Details:">
+                                    <color key="titleColor" red="0.98039215690000003" green="0.6705882353" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSP-YE-Tor">
+                                <rect key="frame" x="32" y="202" width="95" height="54"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Due Date:">
+                                    <color key="titleColor" red="0.98039215690000003" green="0.6705882353" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lord of the Flies" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wRe-Xh-ntF">
+                                <rect key="frame" x="146" y="152" width="193" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Read chapters 1-3" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sIV-yf-mDB">
+                                <rect key="frame" x="146" y="459" width="193" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="S2w-Ib-Ks1">
+                                <rect key="frame" x="32" y="245" width="307" height="194"/>
+                                <date key="date" timeIntervalSinceReferenceDate="502083867.83068401">
+                                    <!--2016-11-29 03:44:27 +0000-->
+                                </date>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDQ-6j-wWd">
+                                <rect key="frame" x="111" y="590" width="152" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.4039215686" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Add Assignment"/>
+                                <connections>
+                                    <action selector="addAssignButton:" destination="wrx-Jd-dgy" eventType="touchUpInside" id="vkN-UH-Fax"/>
+                                    <action selector="addClassButton:" destination="Ixf-fB-wyB" eventType="touchUpInside" id="rcN-99-vI7"/>
+                                    <action selector="signUpButton:" destination="kka-92-lMQ" eventType="touchUpInside" id="GhE-N5-evM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6E1-cu-wsC" secondAttribute="trailing" id="01b-zM-T5r"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="centerY" secondItem="wRe-Xh-ntF" secondAttribute="centerY" id="1kJ-w0-n7s"/>
                             <constraint firstItem="6E1-cu-wsC" firstAttribute="leading" secondItem="DT2-So-Je7" secondAttribute="leading" id="4dx-05-h7u"/>
+                            <constraint firstItem="S2w-Ib-Ks1" firstAttribute="trailing" secondItem="wRe-Xh-ntF" secondAttribute="trailing" id="7ge-fW-lOY"/>
+                            <constraint firstItem="aMI-5z-Y9t" firstAttribute="centerY" secondItem="sIV-yf-mDB" secondAttribute="centerY" id="ABh-0j-LU8"/>
+                            <constraint firstItem="sIV-yf-mDB" firstAttribute="leading" secondItem="aMI-5z-Y9t" secondAttribute="trailing" constant="28" id="Atu-ia-YuN"/>
+                            <constraint firstItem="S2w-Ib-Ks1" firstAttribute="top" secondItem="IOf-mm-chL" secondAttribute="bottom" constant="51" id="H7a-6v-Y2n"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="leading" secondItem="lSP-YE-Tor" secondAttribute="leading" id="K8c-FM-8F6"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="leading" secondItem="DT2-So-Je7" secondAttribute="leadingMargin" constant="16" id="Ra9-LX-Kay"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="leading" secondItem="S2w-Ib-Ks1" secondAttribute="leading" id="TVA-4Y-Mfb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S2w-Ib-Ks1" secondAttribute="trailing" constant="20" id="Va4-OA-kn7"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="trailing" secondItem="aMI-5z-Y9t" secondAttribute="trailing" id="XcC-JZ-dRw"/>
+                            <constraint firstItem="S2w-Ib-Ks1" firstAttribute="trailing" secondItem="sIV-yf-mDB" secondAttribute="trailing" id="fam-72-HGQ"/>
+                            <constraint firstItem="aMI-5z-Y9t" firstAttribute="top" secondItem="lSP-YE-Tor" secondAttribute="bottom" constant="191" id="l57-6p-agc"/>
+                            <constraint firstItem="ILa-Dt-lNF" firstAttribute="top" secondItem="aMI-5z-Y9t" secondAttribute="bottom" constant="166" id="mZn-rV-kqX"/>
                             <constraint firstItem="6E1-cu-wsC" firstAttribute="top" secondItem="DT2-So-Je7" secondAttribute="top" id="myz-zb-2Xe"/>
+                            <constraint firstItem="lSP-YE-Tor" firstAttribute="top" secondItem="IOf-mm-chL" secondAttribute="bottom" constant="8" symbolic="YES" id="pDE-4N-qey"/>
+                            <constraint firstItem="wRe-Xh-ntF" firstAttribute="leading" secondItem="IOf-mm-chL" secondAttribute="trailing" constant="28" id="t06-wo-Uzn"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="leading" secondItem="aMI-5z-Y9t" secondAttribute="leading" id="u0t-Ci-cme"/>
+                            <constraint firstItem="aMI-5z-Y9t" firstAttribute="top" secondItem="S2w-Ib-Ks1" secondAttribute="bottom" constant="8" symbolic="YES" id="x9K-pF-I57"/>
+                            <constraint firstItem="IOf-mm-chL" firstAttribute="top" secondItem="6E1-cu-wsC" secondAttribute="bottom" constant="75" id="xN1-Ei-bdX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Nt9-ep-3o1"/>
+                    <connections>
+                        <outlet property="datePicker" destination="S2w-Ib-Ks1" id="sgm-xr-MGC"/>
+                        <outlet property="detailsText" destination="sIV-yf-mDB" id="lrY-gc-xWY"/>
+                        <outlet property="titleText" destination="wRe-Xh-ntF" id="DQ8-TG-8MA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ckl-jf-Nwq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
