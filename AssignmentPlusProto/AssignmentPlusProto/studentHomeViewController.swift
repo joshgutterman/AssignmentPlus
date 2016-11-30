@@ -28,6 +28,13 @@ class studentHomeViewController: UIViewController {
         }
     }
     
+    @IBAction func addClassButton(_ sender: Any) {
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: studentSubjectViewController = storyBoard.instantiateViewController(withIdentifier: "studentSubject") as! studentSubjectViewController
+        self.present(nextController, animated:true, completion:nil)
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)    }

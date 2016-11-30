@@ -42,6 +42,10 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpButton(_ sender: Any) {
         
         checkForTextFieldErrors(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: studentLogInViewController = storyBoard.instantiateViewController(withIdentifier: "studentLogIn") as! studentLogInViewController
+        self.present(nextController, animated:true, completion:nil)
     }
     
     func checkForTextFieldErrors(studentFirstName: UITextField, studentLastName: UITextField, studentEmail: UITextField, studentPassword: UITextField, studentSchool: UITextField){
