@@ -78,5 +78,20 @@ class studentHomeViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    //go to assignments page when a class is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Student has selected a course")
+        
+        // Get Cell Label
+        let indexPath = tableView.indexPathForSelectedRow;
+        let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextController: studentViewAssignViewController = storyBoard.instantiateViewController(withIdentifier: "classAssign") as! studentViewAssignViewController
+        nextController.passedValueCourse = (currentCell?.textLabel?.text)!
+        nextController.passedValueCourseUID = (currentCell?.detailTextLabel?.text)!
+        self.present(nextController, animated:true, completion:nil)
+    }
+    
 
 }

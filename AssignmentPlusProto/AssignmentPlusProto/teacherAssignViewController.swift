@@ -24,7 +24,6 @@ class teacherAssignViewController: UIViewController, UITableViewDelegate, UITabl
     var subjectValue:String = ""
     var courseValue:String = ""
     var courseUID:String = ""
-    var flag = false
     
     @IBOutlet weak var tableView: UITableView!
     
