@@ -25,6 +25,7 @@ class teacherLogInViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
 
+    //This button instantiates signIn method and input check logic
     @IBAction func loginAction(_ sender: Any) {
         let teacherLogInEmailText = teacherLogInEmail.text;
         let teacherLogInPasswordText = teacherLogInPassword.text;
@@ -39,6 +40,8 @@ class teacherLogInViewController: UIViewController, UITextFieldDelegate {
                     self.myAlert(alertMessage: "Sorry, there are no accounts that exist with that email")
                 }else if(((error?.localizedDescription)! as String) == "The password is invalid or the user does not have a password."){
                     self.myAlert(alertMessage: "Sorry, the password you have entered is invalid.")
+                }else if(((error?.localizedDescription)! as String) == "The email address is badly formatted."){
+                    self.myAlert(alertMessage: "The email address is badly formatted.")
                 }else{
                     print(error?.localizedDescription as Any)
                 }
@@ -54,6 +57,7 @@ class teacherLogInViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //Builds the user error message
     func myAlert(alertMessage: String){
         let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))

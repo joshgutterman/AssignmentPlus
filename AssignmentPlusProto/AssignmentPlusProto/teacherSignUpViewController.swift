@@ -35,17 +35,14 @@ class teacherSignUpViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
 
-    //Calls three functions:
+    //Calls two functions
     //Check if input text contains no errors
     //Authenticate user -> teacher
     //Insert teacher's information into database
+    //Redirect to the login page after running both functions
     @IBAction func signUpButton(_ sender: Any) {
         checkForTextFieldErrors(teacherFirstName: teacherFirstName, teacherLastName: teacherLastName, teacherEmail: teacherEmail, teacherPassword: teacherPassword, teacherSchool: teacherSchool);
         createTeacher(teacherFirstName: teacherFirstName, teacherLastName: teacherLastName, teacherEmail: teacherEmail, teacherPassword: teacherPassword, teacherSchool: teacherSchool);
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: teacherLogInViewController = storyBoard.instantiateViewController(withIdentifier: "teacherLogIn") as! teacherLogInViewController
-        self.present(nextController, animated:true, completion:nil)
     }
     
     //Checks the teacherSignUpView's text fields for errors
@@ -78,7 +75,7 @@ class teacherSignUpViewController: UIViewController, UITextFieldDelegate {
     
     //Creates a user account in the database
     //Inserts the user's information to the appropriate rows
-    //The database is a nested data structure
+    //The database is a nested data structure, hence the child path declarations
     func createTeacher(teacherFirstName: UITextField, teacherLastName: UITextField, teacherEmail: UITextField, teacherPassword: UITextField, teacherSchool: UITextField){
         
         let teacherFirstNameText = teacherFirstName.text;
@@ -95,9 +92,17 @@ class teacherSignUpViewController: UIViewController, UITextFieldDelegate {
                 if(((error?.localizedDescription)! as String) == "The email address is already in use by another account."){
                     self.myAlert(alertMessage: "The email address is already in use by another account. Please use a different email address.")
                 }
+                if(((error?.localizedDescription)! as String) == "The email address is badly formatted."){
+                    self.myAlert(alertMessage: "The email address is badly formatted.")
+                }
             }else{
                 print("Teacher has been created")
                 ref.child("Teacher").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(["first_name": teacherFirstNameText, "last_name": teacherLastNameText, "email": teacherEmailText, "password": teacherPasswordText, "school": teacherSchoolText])
+                
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextController: teacherLogInViewController = storyBoard.instantiateViewController(withIdentifier: "teacherLogIn") as! teacherLogInViewController
+                self.present(nextController, animated:true, completion:nil)
+                
             }
         })
     }
@@ -117,7 +122,7 @@ class teacherSignUpViewController: UIViewController, UITextFieldDelegate {
         return(true)
     }
 
-    
+    //Builds the user error message
     func myAlert(alertMessage: String){
         let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))

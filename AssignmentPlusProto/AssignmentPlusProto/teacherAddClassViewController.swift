@@ -96,9 +96,12 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         selectedSubject = selectedSubjectInitializer
     }
     
+    //This button action instantiates a checkError method
+    //If input is okay, a flag is set to true and returned, then
+    //addClass method is called
     @IBAction func addClassButton(_ sender: Any) {
         print(selectedSubject)
-        checkForTextFieldErrors(periodText: periodText, classNameText: classNameText, termText: termText)
+        checkForTextFieldErrors(periodText: periodText, classNameText: classNameText, termText: termText, selectedSubject: selectedSubject)
         if(addClassFlag == true){
             addClass(periodText: periodText, classNameText: classNameText, termText: termText)}
         
@@ -107,39 +110,47 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         self.present(nextController, animated:true, completion:nil)
     }
     
-    func checkForTextFieldErrors(periodText: UITextField, classNameText: UITextField, termText: UITextField){
+    //Checks user input for errors
+    func checkForTextFieldErrors(periodText: UITextField, classNameText: UITextField, termText: UITextField, selectedSubject: String){
         let classPeriod = periodText.text
         let className = classNameText.text
         let classTerm = termText.text
-        
+        var checkOneFlag = false
+        var checkTwoFlag = false
         if(classPeriod!.isEmpty || className!.isEmpty || classTerm!.isEmpty){
             myAlert(alertMessage: "Please fill out all fields to add a class")
+        }else if(selectedSubject.isEmpty){
+            myAlert(alertMessage: "Please select a subject for your class")
         }else{
-            addClassFlag = true
+            checkOneFlag = true
         }
         
+        if(classPeriod == " "){
+            myAlert(alertMessage: "Please specify your class's period or specify if your class is an after-school program with this string " + "After School")
+        }else if(classPeriod == "After School"){
+            checkTwoFlag = true
+        }else{
+            checkTwoFlag = true
+        }
+        
+        if(checkOneFlag == true && checkTwoFlag == true){
+            addClassFlag = true
+        }
     }
-
-    //Adds a class to the teacher table and school's class table
+    
+    //This method builds a string adds a class to the teacher table and school's class table
     func addClass(periodText: UITextField, classNameText: UITextField, termText: UITextField){
         let classPeriod = periodText.text
         let className = classNameText.text
         let classTerm = termText.text
-        
-        
 
-        
-        
-       /* ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
-            self.emailValue = (FIRDataSnapshot).childSnapshot(forPath: "email").value as! String
-        })
-        */
         //"jwgutter1precalcwinter2017"
+        let newClassPeriod = classPeriod?.replacingOccurrences(of: " ", with: "")
         let newClassName = className?.replacingOccurrences(of: " ", with: "")
         let newClassTerm = classTerm?.replacingOccurrences(of: " ", with: "")
-        //let UID = emailValue+classPeriod!+newClassName!+newClassTerm!
-        let UID = lastName+classPeriod!+newClassTerm!+newClassName!
+        let UID = lastName+newClassPeriod!+newClassTerm!+newClassName!
         print(UID)
+        
         ref.child("Teacher").child(userID!).child("courses").child(UID).updateChildValues(["course": className!, "period": classPeriod!, "subject": selectedSubject, "school_term": classTerm!, "uid": UID])//"UID":])
         ref.child(schoolValue).child(selectedSubject).child(UID).updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID": uidValue!]
     }

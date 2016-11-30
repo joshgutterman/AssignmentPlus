@@ -23,7 +23,7 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Do any additional setup after loading the view.
         self.studentFirstName.delegate = self
         self.studentLastName.delegate = self
         self.studentEmail.delegate = self
@@ -35,16 +35,17 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    //Calls two functions
+    //Check if input text contains no errors
+    //Authenticate user -> student
+    //Insert student's information into database
+        //Redirect to the login page after running both functions
     @IBAction func signUpButton(_ sender: Any) {
-        
         checkForTextFieldErrors(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
         createStudent(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: studentLogInViewController = storyBoard.instantiateViewController(withIdentifier: "studentLogInViewController") as! studentLogInViewController
-        self.present(nextController, animated:true, completion:nil)
     }
     
+    //Checks the studentSignUpView's text fields for errors
     func checkForTextFieldErrors(studentFirstName: UITextField, studentLastName: UITextField, studentEmail: UITextField, studentPassword: UITextField, studentSchool: UITextField){
         let studentFirstNameText = studentFirstName.text;
         let studentLastNameText = studentLastName.text;
@@ -73,6 +74,9 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //Creates a user account in the database
+    //Inserts the user's information to the appropriate rows
+    //The database is a nested data structure, hence the child path declarations
     func createStudent(studentFirstName: UITextField, studentLastName: UITextField, studentEmail: UITextField, studentPassword: UITextField, studentSchool: UITextField){
         let studentFirstNameText = studentFirstName.text;
         let studentLastNameText = studentLastName.text;
@@ -87,9 +91,16 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
                 if(((error?.localizedDescription)! as String) == "The email address is already in use by another account."){
                     self.myAlert(alertMessage: "The email address is already in use by another account. Please use a different email address.")
                 }
+                if(((error?.localizedDescription)! as String) == "The email address is badly formatted."){
+                    self.myAlert(alertMessage: "The email address is badly formatted.")
+                }
             }else{
                 print("Student has been created")
                 ref.child("Student").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(["first_name":studentFirstNameText, "last_name": studentLastNameText, "email": studentEmailText, "password": studentPasswordText, "school": studentSchoolText])
+            
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextController: studentLogInViewController = storyBoard.instantiateViewController(withIdentifier: "studentLogInViewController") as! studentLogInViewController
+                self.present(nextController, animated:true, completion:nil)
             }
         })
     }
@@ -109,7 +120,7 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         return(true)
     }
     
-    //alert message function
+    //Builds the user error message
     func myAlert(alertMessage: String){
         let alert = UIAlertController(title: "Hey There", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))

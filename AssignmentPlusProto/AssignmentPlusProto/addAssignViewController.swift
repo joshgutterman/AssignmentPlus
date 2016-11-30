@@ -25,8 +25,9 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     var subjectValue:String = ""
     var dateString:String = ""
     
+    
+    //Button action to transition back to the teacherAssignmentViewController
     @IBAction func closeButton(_ sender: Any) {
-        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
         nextController.passedValueCourseUID = UID
@@ -35,28 +36,33 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(UID)
         datePicker.datePickerMode = UIDatePickerMode.date
-        
         self.titleText.delegate = self
         self.detailsText.delegate = self
-        
-
+        getSchoolValue()
+        getSubjectValue()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    //Adds an async event listener on our database reference
+    //When viewDidLoad is completed, the queried value is returned to the schoolValue variable
+    func getSchoolValue(){
         ref.child("Teacher").child(userID!).observe(.value, with: {
             FIRDataSnapshot in
             self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
         })
-        
-    ref.child("Teacher").child(userID!).child("courses").child(UID).observe(.value, with: { FIRDataSnapshot in
-        self.subjectValue = FIRDataSnapshot.childSnapshot(forPath: "subject").value as! String
-        })
-      //  ref.child(schoolValue).child()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //Adds an async event listener on our database reference
+    //When viewDidLoad is completed, the queried value is returned to the subjectValue variable
+    func getSubjectValue(){
+        ref.child("Teacher").child(userID!).child("courses").child(UID).observe(.value, with: { FIRDataSnapshot in
+            self.subjectValue = FIRDataSnapshot.childSnapshot(forPath: "subject").value as! String
+        })
     }
     
     //hide keyboard when user touches outside keyboard
@@ -72,47 +78,50 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     }
 
     
+    //This button action instantiates a checkError method
+    //If input is okay, a flag is set to true and returned, then
+    //addAssignment method is called
     @IBAction func addAssignButton(_ sender: Any) {
-        
-        
-        let titleValue = titleText.text
-        let detailsValue = detailsText.text
-        
         print("Assignment Added")
         checkForTextFieldErrors(titleText: titleText, detailsText: detailsText)
         if(addAssignFlag == true){
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateString = dateFormatter.string(from: datePicker.date)
-            print(dateString)
-            
+            getDate()
+            addAssignment(titleText: titleText, detailsText: detailsText)
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
+            nextController.passedValueCourseUID = UID
+            self.present(nextController, animated:true, completion:nil)
         }
-        
-        print(self.schoolValue)
-        print("********")
-        print(UID)
-        
-        ref.child(schoolValue).child(subjectValue).child(UID).child("assignments").childByAutoId().updateChildValues(["assignment": titleValue!, "due_date": dateString, "details": detailsValue!])
-        
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
-        nextController.passedValueCourseUID = UID
-        self.present(nextController, animated:true, completion:nil)
     }
     
+    //Checks the assignment input fields for correct values
     func checkForTextFieldErrors(titleText: UITextField, detailsText: UITextField){
         let assignTitle = titleText.text
         let assignDetails = detailsText.text
-        
         if(assignTitle!.isEmpty || assignDetails!.isEmpty){
             myAlert(alertMessage: "Please fill out all fields to add an assignment")
         }else{
             addAssignFlag = true
         }
-        
     }
     
+    //Get the date the user has chosen
+    func getDate(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        dateString = dateFormatter.string(from: datePicker.date)
+        print(dateString)
+    }
+    
+    
+    //This method inserts the assignment with its corresponding attributes on the School -> Subject -> UID table
+    func addAssignment(titleText: UITextField, detailsText: UITextField){
+        let titleValue = titleText.text
+        let detailsValue = detailsText.text
+        ref.child(schoolValue).child(subjectValue).child(UID).child("assignments").childByAutoId().updateChildValues(["assignment": titleValue!, "due_date": dateString, "details": detailsValue!])
+    }
+    
+    //Builds user error message
     func myAlert(alertMessage: String){
         let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil))
