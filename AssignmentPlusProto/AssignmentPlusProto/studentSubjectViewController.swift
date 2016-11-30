@@ -27,24 +27,22 @@ class studentSubjectViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBAction func nextButton(_ sender: Any) {
 
+        print(selectedSubject)
+        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentClassViewController = storyBoard.instantiateViewController(withIdentifier: "studentClass") as! studentClassViewController
+        nextController.subjectValue = selectedSubject
         self.present(nextController, animated:true, completion:nil)
-        
     }
-    
     
     //data for picker view
     var subjectArray = ["Science", "Math", "Literature", "History", "Art", "Government", "Language", "Music"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Input data into the picker view array
         subjectPicker.delegate = self
         subjectPicker.dataSource = self
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

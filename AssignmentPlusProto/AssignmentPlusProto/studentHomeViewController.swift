@@ -12,9 +12,10 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class studentHomeViewController: UIViewController {
+class studentHomeViewController: UIViewController, UITableViewDelegate  {
 
     @IBOutlet weak var theDate: UILabel!
+    
     @IBAction func logout(_ sender: Any) {
         if FIRAuth.auth()?.currentUser != nil{
             do {
@@ -37,7 +38,8 @@ class studentHomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)    }
+        theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

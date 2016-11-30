@@ -13,29 +13,27 @@ import FirebaseAuth
 class studentLogInViewController: UIViewController, UITextFieldDelegate {
     
     
-    @IBOutlet weak var studUsername: UITextField!
-    @IBOutlet weak var studPassword: UITextField!
-    
+    @IBOutlet weak var studentLogInEmail: UITextField!
+    @IBOutlet weak var studentLogInPassword: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.studUsername.delegate = self
-        self.studPassword.delegate = self
-        
-        // Do any additional setup after loading the view.
+        self.studentLogInEmail.delegate = self
+        self.studentLogInPassword.delegate = self
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func studLogInButton(_ sender: Any) {
+        let studentLogInEmailText = studentLogInEmail.text
+        let studentLogInPasswordText = studentLogInPassword.text
         
-        let studentUsernameText = studUsername.text;
-        let studentPasswordText = studPassword.text;
-        
-        FIRAuth.auth()?.signIn(withEmail: studentUsernameText!, password: studentPasswordText!, completion: { (user, error) in
+        //This function takes two arguments - studentLogInEmailText and studentLogInPasswordText as string values
+        //If the student has entered an invalid email, the myAlert() function is called with parameters
+        //If the teacher has entered an invalid password, the myAlert() function is called with parameters
+        //the last 'else' statement confirms the teacher has logged in successfully and prints to the console
+        FIRAuth.auth()?.signIn(withEmail: studentLogInEmailText!, password: studentLogInPasswordText!, completion: { (user, error) in
             if(error != nil){
                 if(((error?.localizedDescription)! as String) == "There is no user record corresponding to this identifier. The user may have been deleted."){
                     self.myAlert(alertMessage: "Sorry, there are no accounts with that email")
@@ -52,8 +50,6 @@ class studentLogInViewController: UIViewController, UITextFieldDelegate {
                 self.present(nextController, animated:true, completion:nil)
             }
         })
-        
-
     }
     
     //hide keyboard when user touches outside keyboard
@@ -63,13 +59,12 @@ class studentLogInViewController: UIViewController, UITextFieldDelegate {
     
     //hide keyboard with user hits "return"
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        studUsername.resignFirstResponder()
-        studPassword.resignFirstResponder()
+        studentLogInEmail.resignFirstResponder()
+        studentLogInPassword.resignFirstResponder()
         return(true)
     }
     
     func myAlert (alertMessage: String){
-        
         let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)

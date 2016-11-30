@@ -290,8 +290,8 @@
 		D1FB96401DEEDB7C00068F55 /* studentView */ = {
 			isa = PBXGroup;
 			children = (
-				D1FB96411DEEDBBF00068F55 /* studentSubjectViewController.swift */,
 				D1FB96431DEEDF1900068F55 /* studentClassViewController.swift */,
+				D1FB96411DEEDBBF00068F55 /* studentSubjectViewController.swift */,
 				D1FB96471DEEE0E700068F55 /* studentViewAssignViewController.swift */,
 				D1FB96491DEEE1E000068F55 /* studentAssignDetailsViewController.swift */,
 			);

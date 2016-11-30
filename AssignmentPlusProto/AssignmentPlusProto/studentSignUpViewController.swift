@@ -9,18 +9,16 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseInstanceID
 
 class studentSignUpViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBOutlet weak var studentFirstName: UITextField!
-    
     @IBOutlet weak var studentLastName: UITextField!
-    
     @IBOutlet weak var studentEmail: UITextField!
-    
     @IBOutlet weak var studentPassword: UITextField!
-    
     @IBOutlet weak var studentSchool: UITextField!
     
     override func viewDidLoad() {
@@ -37,14 +35,13 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    
-    
     @IBAction func signUpButton(_ sender: Any) {
         
         checkForTextFieldErrors(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
+        createStudent(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: studentLogInViewController = storyBoard.instantiateViewController(withIdentifier: "studentLogIn") as! studentLogInViewController
+        let nextController: studentLogInViewController = storyBoard.instantiateViewController(withIdentifier: "studentLogInViewController") as! studentLogInViewController
         self.present(nextController, animated:true, completion:nil)
     }
     
@@ -71,20 +68,30 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         }
         
         //Checks if password length is greater than 6
-        if((studPassword?.characters.count)! < studPasswordLengthCheck){
+        if((studentPasswordText?.characters.count)! < studentPasswordLengthCheck){
             self.myAlert(alertMessage: "Please enter a password with more than 6 characters");
         }
     }
+    
+    func createStudent(studentFirstName: UITextField, studentLastName: UITextField, studentEmail: UITextField, studentPassword: UITextField, studentSchool: UITextField){
+        let studentFirstNameText = studentFirstName.text;
+        let studentLastNameText = studentLastName.text;
+        let studentEmailText = studentEmail.text;
+        let studentPasswordText = studentPassword.text;
+        let studentSchoolText = studentSchool.text;
+        let ref = FIRDatabase.database().reference()
         //Create student with the proper authentication credentials
-        FIRAuth.auth()?.createUser(withEmail: studEmail!, password: studPassword!, completion: { (user, error) in
-            if (error != nil){
+        FIRAuth.auth()?.createUser(withEmail: studentEmailText!, password: studentPasswordText!, completion: { (data, error) in
+            if(error != nil){
                 print(error?.localizedDescription as Any)
-                self.myAlert(alertMessage:" " + (error?.localizedDescription)! as String)
+                if(((error?.localizedDescription)! as String) == "The email address is already in use by another account."){
+                    self.myAlert(alertMessage: "The email address is already in use by another account. Please use a different email address.")
+                }
             }else{
                 print("Student has been created")
+                ref.child("Student").child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(["first_name":studentFirstNameText, "last_name": studentLastNameText, "email": studentEmailText, "password": studentPasswordText, "school": studentSchoolText])
             }
         })
-        
     }
     
     //hide keyboard when user touches outside keyboard
@@ -94,17 +101,17 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
     
     //hide keyboard with user hits "return"
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        studFirstText.resignFirstResponder()
-        studLastText.resignFirstResponder()
-        studEmailText.resignFirstResponder()
-        studPasswordText.resignFirstResponder()
-        studSchoolText.resignFirstResponder()
+        studentFirstName.resignFirstResponder()
+        studentLastName.resignFirstResponder()
+        studentEmail.resignFirstResponder()
+        studentPassword.resignFirstResponder()
+        studentSchool.resignFirstResponder()
         return(true)
     }
     
     //alert message function
     func myAlert(alertMessage: String){
-        let alert = UIAlertController(title: "Hey there", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Hey There", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

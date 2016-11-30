@@ -11,10 +11,14 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class studentClassViewController: UIViewController {
+class studentClassViewController: UIViewController, UITableViewDelegate {
+    
+    var subjectValue:String = ""
+    let ref = FIRDatabase.database().reference()
+    let userID = FIRAuth.auth()?.currentUser?.uid
+    var schoolValue:String = ""
     
     @IBAction func backButton(_ sender: Any) {
-
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentSubjectViewController = storyBoard.instantiateViewController(withIdentifier: "studentSubject") as! studentSubjectViewController
         self.present(nextController, animated:true, completion:nil)
@@ -22,8 +26,16 @@ class studentClassViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        print(subjectValue)
+        schoolValue = getSchoolValue()
+    }
+    
+    func getSchoolValue() -> String{
+        ref.child("Student").child(userID!).observe(.value, with: { FIRDataSnapshot in
+            self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
+            print(self.schoolValue)
+        })
+        return schoolValue
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,15 +43,16 @@ class studentClassViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        printData()
+                print(schoolValue)
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    func printData(){
+        print("here")
+    /*    print(schoolValue)
+        ref.child(schoolValue).child(subjectValue).observe(.value, with: {FIRDataSnapshot in
+            
+        })*/
+    }
 }
