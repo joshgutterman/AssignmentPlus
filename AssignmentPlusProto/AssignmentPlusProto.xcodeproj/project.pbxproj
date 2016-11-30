@@ -14,6 +14,7 @@
 		271651B41DC72B890054BC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 271651B21DC72B890054BC9D /* LaunchScreen.storyboard */; };
 		271651BF1DC72B890054BC9D /* AssignmentPlusProtoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651BE1DC72B890054BC9D /* AssignmentPlusProtoTests.swift */; };
 		271651CA1DC72B890054BC9D /* AssignmentPlusProtoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */; };
+		271F1EE31DEE51B400910542 /* AssignmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F1EE21DEE51B400910542 /* AssignmentItem.swift */; };
 		272770811DEBDBE600ECB8EA /* CoursesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272770801DEBDBE600ECB8EA /* CoursesItem.swift */; };
 		27AAD0F51DDC22BE000E680F /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AAD0F41DDC22BE000E680F /* test.json */; };
 		27ACDA851DDE568F006E2E7A /* teacherLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */; };
@@ -64,6 +65,7 @@
 		271651C51DC72B890054BC9D /* AssignmentPlusProtoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssignmentPlusProtoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentPlusProtoUITests.swift; sourceTree = "<group>"; };
 		271651CB1DC72B890054BC9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		271F1EE21DEE51B400910542 /* AssignmentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentItem.swift; sourceTree = "<group>"; };
 		272770801DEBDBE600ECB8EA /* CoursesItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesItem.swift; sourceTree = "<group>"; };
 		27AAD0F41DDC22BE000E680F /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = teacherLogInViewController.swift; sourceTree = "<group>"; };
@@ -170,11 +172,20 @@
 			path = AssignmentPlusProtoUITests;
 			sourceTree = "<group>";
 		};
+		271F1EE11DEE2C3300910542 /* assignmentController */ = {
+			isa = PBXGroup;
+			children = (
+				D1A41B371DE6D800005CD409 /* teacherAssignViewController.swift */,
+			);
+			name = assignmentController;
+			sourceTree = "<group>";
+		};
 		272770831DEBE8DD00ECB8EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				271651AB1DC72B890054BC9D /* ViewController.swift */,
-				272770861DEBE93500ECB8EA /* teacherAdd */,
+				271F1EE11DEE2C3300910542 /* assignmentController */,
+				272770861DEBE93500ECB8EA /* addControllers */,
 				27ACDA881DDE5728006E2E7A /* loginControllers */,
 				27ACDA891DDE573F006E2E7A /* signUpControllers */,
 				D1A41B341DE111DF005CD409 /* homeControllers */,
@@ -199,20 +210,20 @@
 			name = Other;
 			sourceTree = "<group>";
 		};
-		272770861DEBE93500ECB8EA /* teacherAdd */ = {
+		272770861DEBE93500ECB8EA /* addControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D1A41B371DE6D800005CD409 /* teacherAssignViewController.swift */,
 				D1A41B351DE37A84005CD409 /* teacherAddClassViewController.swift */,
 				D10BF61C1DEBF2D900D9D919 /* addAssignViewController.swift */,
 			);
-			name = teacherAdd;
+			name = addControllers;
 			sourceTree = "<group>";
 		};
 		272770871DEBE95300ECB8EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				272770801DEBDBE600ECB8EA /* CoursesItem.swift */,
+				271F1EE21DEE51B400910542 /* AssignmentItem.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -559,6 +570,7 @@
 				27ACDA871DDE571A006E2E7A /* teacherSignUpViewController.swift in Sources */,
 				D147A29E1DDAF9C1006F837C /* studentHomeViewController.swift in Sources */,
 				D1A41B381DE6D800005CD409 /* teacherAssignViewController.swift in Sources */,
+				271F1EE31DEE51B400910542 /* AssignmentItem.swift in Sources */,
 				D147A29C1DDAE270006F837C /* studentLogInViewController.swift in Sources */,
 				27ACDA851DDE568F006E2E7A /* teacherLogInViewController.swift in Sources */,
 				271651AC1DC72B890054BC9D /* ViewController.swift in Sources */,

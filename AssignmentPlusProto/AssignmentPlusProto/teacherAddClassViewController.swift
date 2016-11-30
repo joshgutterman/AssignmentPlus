@@ -23,6 +23,7 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
     var schoolValue:String = ""
     var emailValue:String = ""
     var addClassFlag = false
+    var lastName:String = ""
     
     
     //data for picker view
@@ -53,6 +54,7 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
             self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
             self.emailValue = (FIRDataSnapshot).childSnapshot(forPath: "email").value as! String
+            self.lastName = (FIRDataSnapshot).childSnapshot(forPath: "last_name").value as! String
         })
     }
     
@@ -117,24 +119,29 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         }
         
     }
-    
+
     //Adds a class to the teacher table and school's class table
     func addClass(periodText: UITextField, classNameText: UITextField, termText: UITextField){
         let classPeriod = periodText.text
         let className = classNameText.text
         let classTerm = termText.text
         
-        ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
+        
+
+        
+        
+       /* ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
             self.emailValue = (FIRDataSnapshot).childSnapshot(forPath: "email").value as! String
         })
-        
+        */
         //"jwgutter1precalcwinter2017"
-        let newClassName = className?.trimmingCharacters(in: CharacterSet.whitespaces)
-        let newClassTerm = classTerm?.trimmingCharacters(in: CharacterSet.whitespaces)
-        let UID = emailValue+classPeriod!+newClassName!+newClassTerm!
+        let newClassName = className?.replacingOccurrences(of: " ", with: "")
+        let newClassTerm = classTerm?.replacingOccurrences(of: " ", with: "")
+        //let UID = emailValue+classPeriod!+newClassName!+newClassTerm!
+        let UID = lastName+classPeriod!+newClassTerm!+newClassName!
         print(UID)
-        ref.child("Teacher").child(userID!).child("courses").childByAutoId().updateChildValues(["course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID":])
-        ref.child(schoolValue).child(selectedSubject).childByAutoId().updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID": uidValue!]
+        ref.child("Teacher").child(userID!).child("courses").child(UID).updateChildValues(["course": className!, "period": classPeriod!, "subject": selectedSubject, "school_term": classTerm!, "uid": UID])//"UID":])
+        ref.child(schoolValue).child(selectedSubject).child(UID).updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID": uidValue!]
     }
     
     func myAlert(alertMessage: String){
@@ -144,3 +151,5 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         
     }
 }
+
+

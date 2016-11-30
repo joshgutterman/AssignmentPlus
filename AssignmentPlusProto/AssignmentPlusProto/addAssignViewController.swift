@@ -19,18 +19,24 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     let ref = FIRDatabase.database().reference()
     let userID = FIRAuth.auth()?.currentUser?.uid
     var schoolValue:String = ""
-    
+    var UID:String = ""
+    var courseValue:String = ""
     var addAssignFlag = false
+    var subjectValue:String = ""
+    var dateString:String = ""
     
     @IBAction func closeButton(_ sender: Any) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
+        nextController.passedValueCourseUID = UID
         self.present(nextController, animated:true, completion:nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print(UID)
         datePicker.datePickerMode = UIDatePickerMode.date
         
         self.titleText.delegate = self
@@ -42,9 +48,10 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
             self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
         })
         
-        //passing subject
-        
-       // ref.child(schoolValue).child()
+    ref.child("Teacher").child(userID!).child("courses").child(UID).observe(.value, with: { FIRDataSnapshot in
+        self.subjectValue = FIRDataSnapshot.childSnapshot(forPath: "subject").value as! String
+        })
+      //  ref.child(schoolValue).child()
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,21 +74,30 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     
     @IBAction func addAssignButton(_ sender: Any) {
         
+        
+        let titleValue = titleText.text
+        let detailsValue = detailsText.text
+        
         print("Assignment Added")
         checkForTextFieldErrors(titleText: titleText, detailsText: detailsText)
         if(addAssignFlag == true){
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yy"
-            let dateString = dateFormatter.string(from: datePicker.date)
+            dateString = dateFormatter.string(from: datePicker.date)
             print(dateString)
             
         }
         
         print(self.schoolValue)
         print("********")
+        print(UID)
+        
+        ref.child(schoolValue).child(subjectValue).child(UID).child("assignments").childByAutoId().updateChildValues(["assignment": titleValue!, "due_date": dateString, "details": detailsValue!])
+        
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
+        nextController.passedValueCourseUID = UID
         self.present(nextController, animated:true, completion:nil)
     }
     
@@ -103,8 +119,7 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
         self.present(alert, animated:true, completion:nil)
         
     }
-
-
+    
 }
 
 

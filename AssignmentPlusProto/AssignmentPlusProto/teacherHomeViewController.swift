@@ -12,13 +12,10 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     let ref = FIRDatabase.database().reference()
     let userID = FIRAuth.auth()?.currentUser?.uid
-    //TEMP for tableview
-    //var classes = ["P4 Calculus", "P1 English", "P6 US History"]
     var items: [CoursesItem] = []
-    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var theDate: UILabel!
@@ -39,37 +36,19 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         theDate.text = DateFormatter.localizedString(from: NSDate() as Date, dateStyle:DateFormatter.Style.full, timeStyle: DateFormatter.Style.none)
         
-        //TEMP for tableview
-        tableView.reloadData();
-        
-    /*  ref.child("Teacher").child(userID!).observe(.value, with: { FIRDataSnapshot in
-            for course in FIRDataSnapshot.childSnapshot(forPath: "courses").children{
-
-            }
-        })*/
-        
         ref.child("Teacher").child(userID!).child("courses").observe(.value, with: {FIRDataSnapshot in
             var newItems: [CoursesItem] = []
             for item in FIRDataSnapshot.children{
                 let coursesItem = CoursesItem(snapshot: item as! FIRDataSnapshot)
                 newItems.append(coursesItem)
             }
-            
             self.items = newItems
             self.tableView.reloadData()
         })
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func getTeacherInformation(){
-        let information = FIRDatabase.database().reference()
-        information.child("Teacher")
-        
     }
     
     //number of rows to dsiplay in tableview
@@ -79,18 +58,17 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
     
     //what to display in rows of table view
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-    
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "coursesCell", for: indexPath)
         let coursesItem = items[indexPath.row]
-        
         cell.textLabel?.text = coursesItem.course
-        cell.detailTextLabel?.text = coursesItem.school_term
+        cell.detailTextLabel?.text = coursesItem.uid
 
         print(cell)
         return cell
     }
     
-    var valueToPass:String!
+
     
     //go to assignments page when a class is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,16 +78,13 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
         let indexPath = tableView.indexPathForSelectedRow;
         let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
         
-        //valueToPass = currentCell?.textLabel?.text
-        //performSegue(withIdentifier: "teacherAssign", sender: self)
-        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherAssignViewController = storyBoard.instantiateViewController(withIdentifier: "teacherAssign") as! teacherAssignViewController
-        nextController.passedValueCourse = currentCell?.textLabel?.text
+        nextController.passedValueCourse = (currentCell?.textLabel?.text)!
+        nextController.passedValueCourseUID = (currentCell?.detailTextLabel?.text)!
         self.present(nextController, animated:true, completion:nil)
-        print(currentCell?.textLabel?.text)
     }
 
-    
 
+    
 }
