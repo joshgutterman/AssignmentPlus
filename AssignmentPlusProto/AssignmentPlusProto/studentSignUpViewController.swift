@@ -12,46 +12,56 @@ import FirebaseAuth
 
 class studentSignUpViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var studFirstText: UITextField!
-    @IBOutlet weak var studLastText: UITextField!
-    @IBOutlet weak var studEmailText: UITextField!
-    @IBOutlet weak var studPasswordText: UITextField!
-    @IBOutlet weak var studSchoolText: UITextField!
+
+    @IBOutlet weak var studentFirstName: UITextField!
+    
+    @IBOutlet weak var studentLastName: UITextField!
+    
+    @IBOutlet weak var studentEmail: UITextField!
+    
+    @IBOutlet weak var studentPassword: UITextField!
+    
+    @IBOutlet weak var studentSchool: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.studFirstText.delegate = self
-        self.studLastText.delegate = self
-        self.studEmailText.delegate = self
-        self.studPasswordText.delegate = self
-        self.studSchoolText.delegate = self
+        self.studentFirstName.delegate = self
+        self.studentLastName.delegate = self
+        self.studentEmail.delegate = self
+        self.studentPassword.delegate = self
+        self.studentSchool.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    
     
     @IBAction func signUpButton(_ sender: Any) {
         
-        let studFirst = studFirstText.text;
-        let studLast = studLastText.text;
-        let studEmail = studEmailText.text;
-        let studPassword = studPasswordText.text;
-        let studSchool = studSchoolText.text;
-        let studEmailStringCheck: Character = "@";
-        var studPasswordLengthCheck:Int
-            studPasswordLengthCheck = 6;
+        checkForTextFieldErrors(studentFirstName: studentFirstName, studentLastName: studentLastName, studentEmail: studentEmail, studentPassword: studentPassword, studentSchool: studentSchool)
+    }
+    
+    func checkForTextFieldErrors(studentFirstName: UITextField, studentLastName: UITextField, studentEmail: UITextField, studentPassword: UITextField, studentSchool: UITextField){
+        let studentFirstNameText = studentFirstName.text;
+        let studentLastNameText = studentLastName.text;
+        let studentEmailText = studentEmail.text;
+        let studentPasswordText = studentPassword.text;
+        let studentSchoolText = studentSchool.text;
+        let studentEmailStringCheck: Character = "@";
+        var studentPasswordLengthCheck:Int
+            studentPasswordLengthCheck = 6;
         
         //Checks all text labels for null
-        if(studFirst!.isEmpty || studLast!.isEmpty || studEmail!.isEmpty || studPassword!.isEmpty || studSchool!.isEmpty){
+        if(studentFirstNameText!.isEmpty || studentLastNameText!.isEmpty || studentEmailText!.isEmpty || studentPasswordText!.isEmpty || studentSchoolText!.isEmpty){
             self.myAlert(alertMessage:"You must fill out all fields to sign up.");
             return
         }
         
         //Checks student email for a valid email format
-        if(studEmail?.characters.contains(studEmailStringCheck))!{
+        if(studentEmailText?.characters.contains(studentEmailStringCheck))!{
         }else{
             self.myAlert(alertMessage: "Please enter a valid email of the following format: yourTextHere@example.com");
         }
@@ -60,7 +70,7 @@ class studentSignUpViewController: UIViewController, UITextFieldDelegate {
         if((studPassword?.characters.count)! < studPasswordLengthCheck){
             self.myAlert(alertMessage: "Please enter a password with more than 6 characters");
         }
-        
+    }
         //Create student with the proper authentication credentials
         FIRAuth.auth()?.createUser(withEmail: studEmail!, password: studPassword!, completion: { (user, error) in
             if (error != nil){
