@@ -100,11 +100,15 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
         let assignDetails = detailsText.text
         if(assignTitle!.isEmpty || assignDetails!.isEmpty){
             myAlert(alertMessage: "Please fill out all fields to add an assignment")
+        }else if(assignTitle == " "){
+            myAlert(alertMessage: "You only have whitespace as your title of this assignment, please fill out the title of this assignment")
+        }else if(assignDetails == " "){
+            myAlert(alertMessage: "You only have whitespace as your detail of this assignment, please fill out the detail of this assignment")
         }else{
             addAssignFlag = true
         }
     }
-    
+
     //Get the date the user has chosen
     func getDate(){
         let dateFormatter = DateFormatter()
@@ -112,7 +116,6 @@ class addAssignViewController: UIViewController, UITextFieldDelegate, UIPickerVi
         dateString = dateFormatter.string(from: datePicker.date)
         print(dateString)
     }
-    
     
     //This method inserts the assignment with its corresponding attributes on the School -> Subject -> UID table
     func addAssignment(titleText: UITextField, detailsText: UITextField){
