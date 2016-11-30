@@ -25,8 +25,8 @@ class teacherAssignViewController: UIViewController, UITableViewDelegate, UITabl
     var subjectValue:String = ""
     var courseValue:String = ""
     var courseUID:String = ""
-    
     @IBOutlet weak var tableView: UITableView!
+    
     @IBAction func backButton(_ sender: Any) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController

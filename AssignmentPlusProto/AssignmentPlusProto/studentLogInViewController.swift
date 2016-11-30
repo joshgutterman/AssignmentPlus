@@ -25,7 +25,6 @@ class studentLogInViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    
     //This button instantiates signIn method and input check logic
     @IBAction func studLogInButton(_ sender: Any) {
         let studentLogInEmailText = studentLogInEmail.text
