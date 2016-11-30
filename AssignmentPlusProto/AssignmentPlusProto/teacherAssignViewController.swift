@@ -66,7 +66,7 @@ class teacherAssignViewController: UIViewController, UITableViewDelegate, UITabl
     
     //Gets assignments using the assignmentItem struct and is passed to an array = items
     public func getAssignments(){
-        ref.child(schoolValue).child(subjectValue).child(courseUID).child("assignments").queryBy(.value, with: { FIRDataSnapshot in
+        ref.child(schoolValue).child(subjectValue).child(courseUID).child("assignments").queryOrdered(byChild:"due_date").observe(.value, with: { FIRDataSnapshot in
             var newItems: [AssignmentItem] = []
             for item in FIRDataSnapshot.children{
                 let assignmentItems = AssignmentItem(snapshot: item as! FIRDataSnapshot)
