@@ -15,6 +15,8 @@
 		271651BF1DC72B890054BC9D /* AssignmentPlusProtoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651BE1DC72B890054BC9D /* AssignmentPlusProtoTests.swift */; };
 		271651CA1DC72B890054BC9D /* AssignmentPlusProtoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */; };
 		271F1EE31DEE51B400910542 /* AssignmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F1EE21DEE51B400910542 /* AssignmentItem.swift */; };
+		271F1EE91DEF171C00910542 /* StudentCoursesPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F1EE81DEF171C00910542 /* StudentCoursesPickerItem.swift */; };
+		271F1EEB1DEF209600910542 /* StudentCoursesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271F1EEA1DEF209600910542 /* StudentCoursesItem.swift */; };
 		272770811DEBDBE600ECB8EA /* CoursesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272770801DEBDBE600ECB8EA /* CoursesItem.swift */; };
 		27AAD0F51DDC22BE000E680F /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AAD0F41DDC22BE000E680F /* test.json */; };
 		27ACDA851DDE568F006E2E7A /* teacherLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */; };
@@ -70,6 +72,8 @@
 		271651C91DC72B890054BC9D /* AssignmentPlusProtoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentPlusProtoUITests.swift; sourceTree = "<group>"; };
 		271651CB1DC72B890054BC9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		271F1EE21DEE51B400910542 /* AssignmentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentItem.swift; sourceTree = "<group>"; };
+		271F1EE81DEF171C00910542 /* StudentCoursesPickerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCoursesPickerItem.swift; sourceTree = "<group>"; };
+		271F1EEA1DEF209600910542 /* StudentCoursesItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCoursesItem.swift; sourceTree = "<group>"; };
 		272770801DEBDBE600ECB8EA /* CoursesItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesItem.swift; sourceTree = "<group>"; };
 		27AAD0F41DDC22BE000E680F /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		27ACDA841DDE568F006E2E7A /* teacherLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = teacherLogInViewController.swift; sourceTree = "<group>"; };
@@ -232,7 +236,9 @@
 			isa = PBXGroup;
 			children = (
 				272770801DEBDBE600ECB8EA /* CoursesItem.swift */,
+				271F1EE81DEF171C00910542 /* StudentCoursesPickerItem.swift */,
 				271F1EE21DEE51B400910542 /* AssignmentItem.swift */,
+				271F1EEA1DEF209600910542 /* StudentCoursesItem.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -597,9 +603,11 @@
 				D1FB96421DEEDBBF00068F55 /* studentSubjectViewController.swift in Sources */,
 				27ACDA851DDE568F006E2E7A /* teacherLogInViewController.swift in Sources */,
 				271651AC1DC72B890054BC9D /* ViewController.swift in Sources */,
+				271F1EEB1DEF209600910542 /* StudentCoursesItem.swift in Sources */,
 				D1FB964A1DEEE1E000068F55 /* studentAssignDetailsViewController.swift in Sources */,
 				271651AA1DC72B890054BC9D /* AppDelegate.swift in Sources */,
 				D1A41B361DE37A84005CD409 /* teacherAddClassViewController.swift in Sources */,
+				271F1EE91DEF171C00910542 /* StudentCoursesPickerItem.swift in Sources */,
 				D1A41B331DE111D6005CD409 /* teacherHomeViewController.swift in Sources */,
 				D10BF61D1DEBF2D900D9D919 /* addAssignViewController.swift in Sources */,
 				D147A29A1DDAE208006F837C /* studentSignUpViewController.swift in Sources */,
