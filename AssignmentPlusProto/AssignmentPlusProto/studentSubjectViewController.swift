@@ -13,26 +13,37 @@ import FirebaseDatabase
 
 class studentSubjectViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var transitionFlag = false
     var selectedSubject:String = ""
-    
     @IBOutlet weak var subjectPicker: UIPickerView!
-    
+
+    //Button action to transition back to the studentHomeViewController
     @IBAction func backButton(_ sender: Any) {
-        
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentHomeViewController = storyBoard.instantiateViewController(withIdentifier: "studentHome") as! studentHomeViewController
         self.present(nextController, animated:true, completion:nil)
-        
     }
     
+    //This button action instantiates a checkError method
+    //If input is okay, a flag is set to true and returned, then
+    //the studentClassViewController and View is instantiated
     @IBAction func nextButton(_ sender: Any) {
-
-        print(selectedSubject)
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextController: studentClassViewController = storyBoard.instantiateViewController(withIdentifier: "studentClass") as! studentClassViewController
-        nextController.subjectValue = selectedSubject
-        self.present(nextController, animated:true, completion:nil)
+        checkForTextFieldErrors()
+        if(transitionFlag == true){
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextController: studentClassViewController = storyBoard.instantiateViewController(withIdentifier: "studentClass") as! studentClassViewController
+            nextController.subjectValue = selectedSubject
+            self.present(nextController, animated:true, completion:nil)
+        }
+    }
+    
+    //Checks user input for errors
+    func checkForTextFieldErrors(){
+        if(selectedSubject == ""){
+          myAlert(alertMessage: "Please select a subject")
+        }else{
+            transitionFlag = true
+        }
     }
     
     //data for picker view
@@ -50,7 +61,6 @@ class studentSubjectViewController: UIViewController, UIPickerViewDelegate, UIPi
         // Dispose of any resources that can be recreated.
     }
     
-    
     //insert subject data into each title of picker
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return subjectArray[row]
@@ -61,6 +71,7 @@ class studentSubjectViewController: UIViewController, UIPickerViewDelegate, UIPi
         return subjectArray.count
     }
     
+    //This function declares the number of pickerViews in our subjectPickerView
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
     }
@@ -71,5 +82,10 @@ class studentSubjectViewController: UIViewController, UIPickerViewDelegate, UIPi
         selectedSubject = selectedSubjectInitializer
     }
     
-    
+    //Builds the user error message
+    func myAlert(alertMessage: String){
+        let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil))
+        self.present(alert, animated:true, completion:nil)
+    }
 }

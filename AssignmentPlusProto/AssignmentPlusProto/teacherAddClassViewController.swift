@@ -29,6 +29,7 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
     //data for picker view
     var subjectArray = ["", "Science", "Math", "Literature", "History", "Art", "Government", "Language", "Music"];
     
+    //Button action to transition back to the teacherHomeViewController
     @IBAction func closeButton(_ sender: Any){
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController
@@ -155,11 +156,11 @@ class teacherAddClassViewController: UIViewController, UIPickerViewDelegate, UIP
         ref.child(schoolValue).child(selectedSubject).child(UID).updateChildValues(["added_by": emailValue, "course": className!, "period": classPeriod!, "school_term": classTerm!, "uid": UID])//"UID": uidValue!]
     }
     
+    //Builds the user error message
     func myAlert(alertMessage: String){
         let alert = UIAlertController(title: "Hi", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil))
         self.present(alert, animated:true, completion:nil)
-        
     }
 }
 

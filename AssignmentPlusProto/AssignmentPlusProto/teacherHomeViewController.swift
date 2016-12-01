@@ -35,6 +35,8 @@ class teacherHomeViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    //viewDidLoad calls getDate()
+    //and getCourses()
     override func viewDidLoad() {
         super.viewDidLoad()
         getDate(theDate: theDate)

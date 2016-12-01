@@ -7,7 +7,7 @@
 //
 
 //GetAssignment() is in viewDidAppear as opposed to viewDidLoad (getSchoolValue and getSubjectValue)
-//because of
+//because of Firebase asynchronous calling
 
 import UIKit
 import Firebase
@@ -27,6 +27,7 @@ class teacherAssignViewController: UIViewController, UITableViewDelegate, UITabl
     var courseUID:String = ""
     @IBOutlet weak var tableView: UITableView!
     
+    //This button action instantiates the teacherHomeViewController and View
     @IBAction func backButton(_ sender: Any) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: teacherHomeViewController = storyBoard.instantiateViewController(withIdentifier: "teacherHome") as! teacherHomeViewController
@@ -88,7 +89,7 @@ class teacherAssignViewController: UIViewController, UITableViewDelegate, UITabl
         return items.count
     }
 
-    //what to display in rows of table view
+      //Table cells are populated with the item array and displayed in the assignmentCell identifier on the teacherAssignmentView View
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath)
         let assignmentItems = items[indexPath.row]

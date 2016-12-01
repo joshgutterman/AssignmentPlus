@@ -16,11 +16,12 @@ class studentClassViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
 
     var items: [StudentCoursesPickerItem] = []
-    var subjectValue:String = ""
     let ref = FIRDatabase.database().reference()
     let userID = FIRAuth.auth()?.currentUser?.uid
+    var subjectValue:String = ""
     var schoolValue:String = ""
     
+    //Button action to instantiate the studentSubjectViewController and View
     @IBAction func backButton(_ sender: Any) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentSubjectViewController = storyBoard.instantiateViewController(withIdentifier: "studentSubject") as! studentSubjectViewController
@@ -29,29 +30,29 @@ class studentClassViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(subjectValue)
-        schoolValue = getSchoolValue()
+        getSchoolValue()
     }
     
-    func getSchoolValue() -> String{
+    //Adds an async event listener on our database reference
+    //When viewDidLoad is completed, the queried value is returned to the schoolValue
+    func getSchoolValue(){
         ref.child("Student").child(userID!).observe(.value, with: { FIRDataSnapshot in
             self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath: "school").value as! String
             print(self.schoolValue)
         })
-        return schoolValue
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    //In the iOS ViewController lifecycle, viewDidAppear executes after viewDidLoad, this is essential for our getAssignments() function
     override func viewDidAppear(_ animated: Bool) {
-        printData()
+        getCourses()
     }
     
-    func printData(){
-        print("here")
+    //Gets courses using the studentCourses struct and is passed to an array = items
+    func getCourses(){
         print(schoolValue)
         ref.child(schoolValue).child(subjectValue).observe(.value, with: {FIRDataSnapshot in
             var newItems: [StudentCoursesPickerItem] = []
@@ -64,7 +65,6 @@ class studentClassViewController: UIViewController, UITableViewDelegate, UITable
             self.tableView.reloadData()
         })
     }
-    
     
     //number of rows to dsiplay in tableview
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,15 +90,19 @@ class studentClassViewController: UIViewController, UITableViewDelegate, UITable
         let indexPath = tableView.indexPathForSelectedRow;
         let currentCell = tableView.cellForRow(at: indexPath!) as UITableViewCell!;
         insertCourseToStudentTable(currentCell: currentCell!)
+        
+        //instantiate the studentHomeViewController
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentHomeViewController = storyBoard.instantiateViewController(withIdentifier: "studentHome") as! studentHomeViewController
         self.present(nextController, animated:true, completion:nil)
     }
     
+    //This function inserts the students course to the students table
+    //We make a reference to the student's table using a path of child nodes
     func insertCourseToStudentTable(currentCell: UITableViewCell){
         let className = (currentCell.textLabel?.text)!
         let UID = (currentCell.detailTextLabel?.text)!
-        ref.child("Student").child(userID!).child("courses").child(UID).updateChildValues(["course": className, "subject": subjectValue, "uid": UID])//"UID":])
+        ref.child("Student").child(userID!).child("courses").child(UID).updateChildValues(["course": className, "subject": subjectValue, "uid": UID])
     }
     
 }

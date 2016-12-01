@@ -6,13 +6,15 @@
 //  Copyright © 2016 CMPS 115. All rights reserved.
 //
 
+//GetAssignment() is in viewDidAppear as opposed to viewDidLoad (getSchoolValue and getSubjectValue)
+//because of Firebase asynchronous calling
+
 import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
 class studentViewAssignViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     
     let ref = FIRDatabase.database().reference()
     let userID = FIRAuth.auth()?.currentUser?.uid
@@ -23,52 +25,52 @@ class studentViewAssignViewController: UIViewController, UITableViewDataSource, 
     var subjectValue:String = ""
     var courseValue:String = ""
     var courseUID:String = ""
-    
     @IBOutlet weak var tableView: UITableView!
+    
+    //This button action instantiates the teacherHomeViewController and View
     @IBAction func backButton(_ sender: Any) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextController: studentHomeViewController = storyBoard.instantiateViewController(withIdentifier: "studentHome") as! studentHomeViewController
         self.present(nextController, animated:true, completion:nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         courseValue = passedValueCourse
         courseUID = passedValueCourseUID
-        
-        let testA = getSchoolValue()
-        let testB = getSubjectValue()
-        
+        getSchoolValue()
+        getSubjectValue()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func getSchoolValue() -> String{
+    //Adds an async event listener on our database reference
+    //When viewDidLoad is completed, the queried value is returned to the schoolValue variable
+    func getSchoolValue(){
         ref.child("Student").child(userID!).observe(.value, with: {FIRDataSnapshot in
             self.schoolValue = (FIRDataSnapshot).childSnapshot(forPath:"school").value as! String
             print(self.schoolValue)
         })
-        print("Step 3 " + "Here before print statements")
-        print(passedValueCourseUID)
-        return schoolValue
     }
     
-    func getSubjectValue() -> String{
+    //Adds an async event listener on our database reference
+    //When viewDidLoad is completed, the queried value is returned to the subjectValue variable
+    func getSubjectValue(){
         ref.child("Student").child(userID!).child("courses").child(passedValueCourseUID).observe(.value, with: {FIRDataSnapshot in
             self.subjectValue = (FIRDataSnapshot).childSnapshot(forPath:"subject").value as! String
             print(self.subjectValue)
         })
-        print("Step 4 " + "Here beforePrint statements")
-        return subjectValue
     }
     
-    
+    //In the iOS ViewController lifecycle, viewDidAppear executes after viewDidLoad, this is essential for our getAssignments() function
     override func viewDidAppear(_ animated: Bool) {
-        getTest()
+        getStudentAssignments()
     }
     
-    public func getTest(){
+    //Gets assignments using the studentAssignmentItem struct and is passed to an array = items
+    public func getStudentAssignments(){
         ref.child(schoolValue).child(subjectValue).child(courseUID).child("assignments").observe(.value, with: { FIRDataSnapshot in
             var newItems: [AssignmentItem] = []
             for item in FIRDataSnapshot.children{
@@ -76,9 +78,7 @@ class studentViewAssignViewController: UIViewController, UITableViewDataSource, 
                 newItems.append(assignmentItems)
             }
             self.items = newItems
-            print("*****")
             print(self.items)
-            print("****")
             self.tableView.reloadData()
         })
     }
@@ -89,22 +89,14 @@ class studentViewAssignViewController: UIViewController, UITableViewDataSource, 
         return items.count
     }
     
-    //what to display in rows of table view
+    //Table cells are populated with the item array and displayed in the studentAssignmentCell identifier on the studentViewAssignmentView View
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         print("Here")
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentAssignmentCell", for: indexPath)
         let assignmentItems = items[indexPath.row]
         cell.textLabel?.text = assignmentItems.assignment
         cell.detailTextLabel?.text = assignmentItems.due_date
-        print("Here")
         print(cell)
         return cell
-    }
-    
-/*    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        let controller = segue.destination as! addAssignViewController
-        controller.UID = passedValueCourseUID
-        controller.courseValue = passedValueCourse
-    }*/
-    
+    }    
 }
